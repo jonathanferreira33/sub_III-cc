@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0
+    command: start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8082:8080"
+
+  vehicle-service:
+    build: ./vehicle-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - keycloak
+
+  payment-service:
+    build: ./payment-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - keycloak
