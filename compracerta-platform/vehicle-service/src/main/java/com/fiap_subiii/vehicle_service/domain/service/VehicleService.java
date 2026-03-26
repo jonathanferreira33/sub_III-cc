@@ -1,0 +1,54 @@
+package com.fiap_subiii.vehicle_service.domain.service;
+
+import com.fiap_subiii.vehicle_service.domain.model.Vehicle;
+import com.fiap_subiii.vehicle_service.domain.repository.VehicleRepository;
+import com.fiap_subiii.vehicle_service.domain.usecase.CreateVehicleUseCase;
+
+import com.fiap_subiii.vehicle_service.domain.usecase.ListVehiclesUseCase;
+import com.fiap_subiii.vehicle_service.domain.usecase.PurchaseVehicleUseCase;
+
+import java.util.List;
+import java.util.UUID;
+
+public class VehicleService implements PurchaseVehicleUseCase, CreateVehicleUseCase, ListVehiclesUseCase {
+
+    private final VehicleRepository vehicleRepository;
+
+    public VehicleService(VehicleRepository vehicleRepository) {
+        this.vehicleRepository = vehicleRepository;
+    }
+
+    @Override
+    public List<Vehicle> listAvailableVehicles() {
+        return vehicleRepository.findAllOrderByPriceAsc(false);
+    }
+
+    @Override
+    public List<Vehicle> listSoldVehicles() {
+        return vehicleRepository.findAllOrderByPriceAsc(true);
+    }
+
+    @Override
+    public List<Vehicle> listAllVehicles() {
+        return vehicleRepository.findAllVehicle();
+    }
+
+    @Override
+    public Vehicle purchaseVehicle(UUID vehicleId) {
+        Vehicle vehicle = vehicleRepository.findById(vehicleId);
+
+        if (vehicle == null) {
+            throw new RuntimeException("Veículo não encontrado.");
+        }
+
+        vehicle.markAsSold();
+
+        return vehicleRepository.save(vehicle);
+    }
+
+
+    @Override
+    public Vehicle createVehicle(Vehicle vehicle) {
+        return vehicleRepository.save(vehicle);
+    }
+}

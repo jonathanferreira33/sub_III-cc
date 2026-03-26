@@ -17,4 +17,11 @@ public class Vehicle {
     private String color;
     private BigDecimal price;
     private boolean sold;
+
+    public void markAsSold() {
+        if (this.sold) {
+            throw new IllegalStateException("Veículo já foi vendido e não pode ser comercializado.");
+        }
+        this.sold = true;
+    }
 }
