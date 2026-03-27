@@ -48,7 +48,8 @@ public class VehicleService implements PurchaseVehicleUseCase, CreateVehicleUseC
 
 
     @Override
-    public Vehicle createVehicle(Vehicle vehicle) {
+    public Vehicle createVehicle(Vehicle vehicle, UUID customerId) {
+
         return vehicleRepository.save(vehicle);
     }
 }
