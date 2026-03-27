@@ -6,7 +6,6 @@ import com.fiap_subiii.vehicle_service.application.mapper.VehicleDTOMapper;
 import com.fiap_subiii.vehicle_service.domain.model.Vehicle;
 import com.fiap_subiii.vehicle_service.domain.usecase.CreateVehicleUseCase;
 import com.fiap_subiii.vehicle_service.domain.usecase.ListVehiclesUseCase;
-import com.fiap_subiii.vehicle_service.domain.usecase.PurchaseVehicleUseCase;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,14 +15,11 @@ import java.util.stream.Collectors;
 
 public class VehicleController {
     private final ListVehiclesUseCase listVehiclesUseCase;
-    private final PurchaseVehicleUseCase purchaseVehicleUseCase;
     private final CreateVehicleUseCase createVehicleUseCase;
 
     public VehicleController(ListVehiclesUseCase listVehiclesUseCase,
-                             PurchaseVehicleUseCase purchaseVehicleUseCase,
                              CreateVehicleUseCase createVehicleUseCase) {
         this.listVehiclesUseCase = listVehiclesUseCase;
-        this.purchaseVehicleUseCase = purchaseVehicleUseCase;
         this.createVehicleUseCase = createVehicleUseCase;
     }
 
@@ -51,8 +47,7 @@ public class VehicleController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(response);
     }
-
-
+    
     @GetMapping("/available")
     public ResponseEntity<List<VehicleResponse>> listAvailable() {
         List<VehicleResponse> response = listVehiclesUseCase.listAvailableVehicles()
@@ -69,11 +64,5 @@ public class VehicleController {
                 .map(VehicleDTOMapper::toResponse)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(response);
-    }
-
-    @PatchMapping("/{id}/purchase")
-    public ResponseEntity<VehicleResponse> purchase(@PathVariable UUID id) {
-        Vehicle purchasedVehicle = purchaseVehicleUseCase.purchaseVehicle(id);
-        return ResponseEntity.ok(VehicleDTOMapper.toResponse(purchasedVehicle));
     }
 }
