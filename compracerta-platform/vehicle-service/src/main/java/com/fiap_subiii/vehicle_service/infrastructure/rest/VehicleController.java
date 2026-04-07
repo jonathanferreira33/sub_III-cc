@@ -7,6 +7,8 @@ import com.fiap_subiii.vehicle_service.domain.model.Vehicle;
 import com.fiap_subiii.vehicle_service.domain.usecase.CreateVehicleUseCase;
 import com.fiap_subiii.vehicle_service.domain.usecase.ListVehiclesUseCase;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +26,12 @@ public class VehicleController {
     }
 
     @PostMapping
-    public ResponseEntity<VehicleResponse> create(@RequestBody VehicleRequest request) {
+    public ResponseEntity<VehicleResponse> create(
+            @RequestBody VehicleRequest request,
+            @AuthenticationPrincipal Jwt jwt) {
+
+        String keycloakUserId = jwt.getSubject();
+
         Vehicle vehicle = Vehicle.builder()
                 .id(UUID.randomUUID())
                 .brand(request.brand())
@@ -35,7 +42,7 @@ public class VehicleController {
                 .sold(false)
                 .build();
 
-        Vehicle savedVehicle = createVehicleUseCase.createVehicle(vehicle);
+        Vehicle savedVehicle = createVehicleUseCase.createVehicle(vehicle, UUID.fromString(keycloakUserId));
         return ResponseEntity.ok(VehicleDTOMapper.toResponse(savedVehicle));
     }
 

@@ -8,7 +8,6 @@ import com.fiap_subiii.vehicle_service.infrastructure.persistence.mapper.Vehicle
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static com.fiap_subiii.vehicle_service.infrastructure.persistence.mapper.VehiclePersistenceMapper.toDomain;
 import static com.fiap_subiii.vehicle_service.infrastructure.persistence.mapper.VehiclePersistenceMapper.toEntity;
@@ -38,7 +37,7 @@ public class VehicleRepositoryImpl implements VehicleRepository {
         return jpaRepository.findBySoldOrderByPriceAsc(sold)
                 .stream()
                 .map(VehiclePersistenceMapper::toDomain)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -46,6 +45,12 @@ public class VehicleRepositoryImpl implements VehicleRepository {
         return jpaRepository.findById(id)
                 .map(VehiclePersistenceMapper::toDomain)
                 .orElseThrow(() -> new RuntimeException("Veículo não encontrado"));
+    }
+
+    @Override
+    public List<Vehicle> findAllVehicle() {
+        return jpaRepository.findAll()
+                .stream().map(VehiclePersistenceMapper::toDomain).toList();
     }
 
 }
