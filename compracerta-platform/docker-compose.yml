@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
 
   keycloak:
@@ -23,6 +21,13 @@ services:
     build: ./payment-service
     ports:
       - "8081:8081"
+    depends_on:
+      - keycloak
+
+  user-service:
+    build: ./user-service
+    ports:
+      - "8083:8083"
     depends_on:
       - keycloak
 

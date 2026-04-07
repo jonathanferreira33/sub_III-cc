@@ -6,10 +6,12 @@ import com.fiap_subiii.vehicle_service.domain.usecase.CreateVehicleUseCase;
 
 import com.fiap_subiii.vehicle_service.domain.usecase.ListVehiclesUseCase;
 import com.fiap_subiii.vehicle_service.domain.usecase.PurchaseVehicleUseCase;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class VehicleService implements PurchaseVehicleUseCase, CreateVehicleUseCase, ListVehiclesUseCase {
 
     private final VehicleRepository vehicleRepository;
