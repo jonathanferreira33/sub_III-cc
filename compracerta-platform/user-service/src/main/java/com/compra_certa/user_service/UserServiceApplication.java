@@ -5,9 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.persistence.autoconfigure.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(scanBasePackages = "com.compra_certa")
-@EnableJpaRepositories(basePackages = "com.compra_certa.user_service.infrastructure")
-@EntityScan(basePackages = "com.compra_certa.user_service.infrastructure")
+@SpringBootApplication(scanBasePackages = "com.compra_certa.user_service")
 public class UserServiceApplication {
 
 	public static void main(String[] args) {

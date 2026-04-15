@@ -4,7 +4,9 @@ import com.fiap_subiii.vehicle_service.domain.repository.VehicleRepository;
 import com.fiap_subiii.vehicle_service.domain.service.VehicleService;
 import com.fiap_subiii.vehicle_service.infrastructure.client.PaymentClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class BeanConfiguration {
     @Bean
     public VehicleService vehicleService(VehicleRepository vehicleRepository, PaymentClient paymentClient) {

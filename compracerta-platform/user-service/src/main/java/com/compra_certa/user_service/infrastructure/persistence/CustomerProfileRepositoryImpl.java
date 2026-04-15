@@ -4,12 +4,13 @@ import com.compra_certa.user_service.domain.model.CustomerProfile;
 import com.compra_certa.user_service.domain.repository.CustomerProfileRepository;
 import com.compra_certa.user_service.infrastructure.mapper.CustomerProfileMapper;
 import com.compra_certa.user_service.infrastructure.persistence.entity.CustomerProfileEntity;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
+
 
 import java.util.Optional;
 import java.util.UUID;
 
-@Repository
+@Component
 public class CustomerProfileRepositoryImpl implements CustomerProfileRepository {
 
     private final JpaUserProfileRepository jpaRepository;
