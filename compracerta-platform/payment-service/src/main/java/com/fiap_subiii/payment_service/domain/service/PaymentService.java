@@ -4,10 +4,12 @@ import com.fiap_subiii.payment_service.domain.event.PaymentApprovedEvent;
 import com.fiap_subiii.payment_service.domain.model.Payment;
 import com.fiap_subiii.payment_service.domain.repository.MessagePublisher;
 import com.fiap_subiii.payment_service.domain.repository.PaymentRepository;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Service
 public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final MessagePublisher messagePublisher;

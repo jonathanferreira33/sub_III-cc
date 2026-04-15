@@ -1,4 +1,4 @@
-package com.fiap_subiii.payment_service.infrastructure.configuration;
+package com.fiap_subiii.vehicle_service.infrastructure.configuration;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -11,15 +11,19 @@ import org.springframework.amqp.core.Queue;
 
 @Configuration
 public class RabbitMQConfig {
-    public static final String EXCHANGE = "payment.exchange";
     public static final String QUEUE = "vehicle.purchase.queue";
+    public static final String EXCHANGE = "payment.exchange";
     public static final String ROUTING_KEY = "payment.approved";
 
     @Bean
-    public TopicExchange exchange() { return new TopicExchange(EXCHANGE); }
+    public Queue queue() {
+        return new Queue(QUEUE, true);
+    }
 
     @Bean
-    public Queue queue() { return new Queue(QUEUE); }
+    public TopicExchange exchange() {
+        return new TopicExchange(EXCHANGE);
+    }
 
     @Bean
     public Binding binding(Queue queue, TopicExchange exchange) {

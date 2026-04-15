@@ -1,4 +1,4 @@
-package com.fiap_subiii.vehicle_service.infrastructure.rest;
+package com.fiap_subiii.vehicle_service.infrastructure.rest.controller;
 
 import com.fiap_subiii.vehicle_service.application.dto.SaleRequest;
 import com.fiap_subiii.vehicle_service.application.dto.VehicleRequest;

@@ -1,4 +1,4 @@
-package com.compra_certa.user_service.infrastructure.messaging;
+package com.compra_certa.user_service.infrastructure.messaging.consumer;
 
 import com.compra_certa.user_service.domain.event.CustomerRegisteredEvent;
 import com.compra_certa.user_service.domain.usecase.CreateCustomerProfileUseCase;

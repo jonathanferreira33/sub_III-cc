@@ -5,6 +5,7 @@ import com.fiap_subiii.vehicle_service.domain.model.Vehicle;
 import com.fiap_subiii.vehicle_service.domain.repository.VehicleRepository;
 import com.fiap_subiii.vehicle_service.infrastructure.persistence.entity.VehicleEntity;
 import com.fiap_subiii.vehicle_service.infrastructure.persistence.mapper.VehiclePersistenceMapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,17 +13,15 @@ import java.util.UUID;
 import static com.fiap_subiii.vehicle_service.infrastructure.persistence.mapper.VehiclePersistenceMapper.toDomain;
 import static com.fiap_subiii.vehicle_service.infrastructure.persistence.mapper.VehiclePersistenceMapper.toEntity;
 
+@Repository
 public class VehicleRepositoryImpl implements VehicleRepository {
 
     private final VehicleJpaRepository jpaRepository;
-    private final VehicleDTOMapper mapper;
 
     public VehicleRepositoryImpl(
-            VehicleJpaRepository jpaRepository,
-            VehicleDTOMapper mapper
+            VehicleJpaRepository jpaRepository
     ) {
         this.jpaRepository = jpaRepository;
-        this.mapper = mapper;
     }
 
     @Override
