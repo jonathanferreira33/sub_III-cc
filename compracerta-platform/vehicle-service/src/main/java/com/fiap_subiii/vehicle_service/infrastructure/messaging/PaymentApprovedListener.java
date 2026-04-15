@@ -19,7 +19,10 @@ public class PaymentApprovedListener {
     public void handlePaymentApproved(PaymentApprovedEvent event) {
         try {
             log.info("Processando integração de venda - Veículo ID: {}", event.vehicleId());
-            purchaseVehicleUseCase.purchaseVehicle(event.vehicleId());
+
+            if ("APPROVED".equals(event.status())) {
+                purchaseVehicleUseCase.purchaseVehicle(event.vehicleId());
+            }
 
             log.info("Veículo {} marcado como vendido com sucesso via mensageria.", event.vehicleId());
         } catch (Exception e) {

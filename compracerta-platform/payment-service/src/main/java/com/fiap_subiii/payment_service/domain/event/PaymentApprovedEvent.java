@@ -4,6 +4,7 @@ import java.util.UUID;
 
 public record PaymentApprovedEvent(
         UUID vehicleId,
+        UUID customerId,
         UUID paymentId,
         String status
 ) {

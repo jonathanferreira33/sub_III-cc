@@ -1,11 +1,13 @@
 package com.fiap_subiii.vehicle_service.infrastructure.rest;
 
+import com.fiap_subiii.vehicle_service.application.dto.SaleRequest;
 import com.fiap_subiii.vehicle_service.application.dto.VehicleRequest;
 import com.fiap_subiii.vehicle_service.application.dto.VehicleResponse;
 import com.fiap_subiii.vehicle_service.application.mapper.VehicleDTOMapper;
 import com.fiap_subiii.vehicle_service.domain.model.Vehicle;
 import com.fiap_subiii.vehicle_service.domain.usecase.CreateVehicleUseCase;
 import com.fiap_subiii.vehicle_service.domain.usecase.ListVehiclesUseCase;
+import com.fiap_subiii.vehicle_service.domain.usecase.SaleVehicleUseCase;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -18,11 +20,25 @@ import java.util.stream.Collectors;
 public class VehicleController {
     private final ListVehiclesUseCase listVehiclesUseCase;
     private final CreateVehicleUseCase createVehicleUseCase;
+    private final SaleVehicleUseCase saleVehicleUseCase;
 
     public VehicleController(ListVehiclesUseCase listVehiclesUseCase,
-                             CreateVehicleUseCase createVehicleUseCase) {
+                             CreateVehicleUseCase createVehicleUseCase, SaleVehicleUseCase saleVehicleUseCase) {
         this.listVehiclesUseCase = listVehiclesUseCase;
         this.createVehicleUseCase = createVehicleUseCase;
+        this.saleVehicleUseCase = saleVehicleUseCase;
+    }
+
+    @PostMapping("/sale")
+    public ResponseEntity<Void> salesRecord(
+            @RequestBody SaleRequest request,
+            @AuthenticationPrincipal Jwt jwt)
+    {
+
+        String keycloakUserId = jwt.getSubject();
+        saleVehicleUseCase.saleVehicle(request.vehicleID(), UUID.fromString(keycloakUserId));
+
+        return ResponseEntity.accepted().build();
     }
 
     @PostMapping

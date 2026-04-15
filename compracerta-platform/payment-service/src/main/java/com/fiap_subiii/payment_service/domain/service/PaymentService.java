@@ -26,10 +26,11 @@ public class PaymentService {
 
         messagePublisher.publishPaymentApproved(new PaymentApprovedEvent(
                 savedPayment.getVehicleId(),
+                savedPayment.getCustomerId(),
                 savedPayment.getId(),
                 savedPayment.getStatusPayment()
         ));
 
-        return paymentRepository.save(payment);
+        return savedPayment;
     }
 }
